@@ -112,4 +112,48 @@ GROUP BY c.id_cliente,
 
 
 -- 26. Consulta trampa que no devuelva resultados
--- Explicar por qué el resultado vacío es correcto
+SELECT
+  c.nombre AS cliente,
+  SUM(dv.cantidad) AS cantidad_productos_comprados
+FROM clientes c
+JOIN ventas v
+ON c.id_cliente = v.id_cliente
+JOIN detalle_venta dv
+ON v.id_venta = dv.id_venta
+GROUP BY c.nombre
+HAVING SUM(dv.cantidad) > 6;
+
+--Por que el total de cantidades totales en productos comprado por clientes
+--durante el pediodo del 01/04/2026 al 06/04/2026 
+--tiene un maximo de 6 productos 
+--y el signo corresponde a un numero mayor a 6
+
+-- BONUS 1: Producto más caro
+SELECT nombre, precio
+FROM productos
+WHERE precio = (SELECT MAX(precio)
+                FROM productos);
+
+-- BONUS 2: Cliente con más ventas
+SELECT
+  c.nombre,
+  COUNT(v.id_venta) AS total_ventas
+FROM clientes c
+JOIN ventas v
+ON c.id_cliente = v.id_cliente
+GROUP BY c.nombre
+HAVING COUNT(v.id_venta) = (SELECT MAX(conteo)
+                            FROM (SELECT COUNT(id_venta) AS conteo
+                            FROM ventas
+                             GROUP BY id_cliente) AS sub);
+
+-- BONUS 3: Fecha con más ventas
+SELECT
+  fecha,
+  COUNT(id_venta) AS total_ventas
+FROM ventas
+GROUP BY fecha
+HAVING COUNT(id_venta) = (SELECT MAX(conteo)
+                            FROM (SELECT COUNT(id_venta) AS conteo
+                                    FROM ventas
+                                    GROUP BY fecha) AS sub);
