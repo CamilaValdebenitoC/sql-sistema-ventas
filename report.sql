@@ -17,7 +17,7 @@ SELECT nombre, email FROM clientes;
 -- 5. Mostrar solo nombre y precio de productos
 SELECT nombre, precio FROM productos;
 
--- Productos con precio mayor a 50000
+-- 6. Productos con precio mayor a 50000
 SELECT *FROM productos
 WHERE precio > 50000;
 
