@@ -17,17 +17,22 @@ SELECT nombre, email FROM clientes;
 -- 5. Mostrar solo nombre y precio de productos
 SELECT nombre, precio FROM productos;
 
--- 6. Productos con precio mayor a 50000
-
+-- Productos con precio mayor a 50000
+SELECT *FROM productos
+WHERE precio > 50000;
 
 -- 7. Ventas realizadas el 2026-04-02
-
+SELECT *FROM ventas
+WHERE fecha = '2026-04-02';
 
 -- 8. Productos ordenados de mayor a menor precio
 
+SELECT * FROM productos
+ORDER BY precio DESC;
 
 -- 9. Clientes ordenados por nombre
-
+SELECT *FROM clientes
+ORDER BY nombre ASC;
 
 -- 10. Detalles de venta con cantidad >= 2
 SELECT *
